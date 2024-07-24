@@ -7,6 +7,7 @@ from escola.views import *
 router = DefaultRouter(trailing_slash=False)
 router.register(prefix='estudantes',viewset=EstudantesViewSet,basename='Estudantes')
 router.register(prefix='curso',viewset=CursoViewSet,basename='Cursos')
+router.register(prefix='matriculas',viewset=MatriculaViewSet,basename='Matricula')
 
 
 urlpatterns = [
