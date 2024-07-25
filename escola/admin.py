@@ -14,7 +14,7 @@ class CursoAdmin(admin.ModelAdmin):
 admin.site.register(Curso, CursoAdmin)
 
 class MatriculaAdmin(admin.ModelAdmin):
-    list_display = ('id','id_estudante','id_curs','Perdiodo')
+    list_display = ('id','id_estudante','id_curs','periodo')
     list_display_links = ('id','id_estudante','id_curs')
     search_fields = ('id',)
 admin.site.register(Matricula, MatriculaAdmin)

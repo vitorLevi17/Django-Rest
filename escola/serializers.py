@@ -15,3 +15,18 @@ class MatriculaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Matricula
         exclude = []
+
+class ListaMatriculasEstudantesSerializer(serializers.ModelSerializer):
+    curso = serializers.ReadOnlyField(source='id_curs.Descricao') #GPT
+    periodo = serializers.SerializerMethodField()
+    class Meta:
+        model = Matricula
+        fields = ['curso','periodo']
+    def get_periodo(self, obj):
+        return obj.get_periodo_display()
+
+class ListaMatriculasCursoSerializer(serializers.ModelSerializer):
+    estudante_nome = serializers.ReadOnlyField(source='id_estudante.Nome')
+    class Meta:
+        model = Matricula
+        fields = ['estudante_nome']

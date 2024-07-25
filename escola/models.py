@@ -35,4 +35,4 @@ class Matricula(models.Model):
 
     id_estudante = models.ForeignKey(Estudantes,on_delete=models.CASCADE)
     id_curs = models.ForeignKey(Curso,on_delete=models.CASCADE)
-    Perdiodo = models.CharField(max_length=1,choices=PERIODO,blank=False,default='M')
+    periodo = models.CharField(max_length=1,choices=PERIODO,blank=False,default='M')
