@@ -1,10 +1,18 @@
-def cpf_invalido(CPF):
-    return len(CPF) != 11
+import re
+from validate_docbr import CPF
+
+def cpf_invalido(n_cpf):
+    cpf = CPF()
+    cpf_valido = cpf.validate(n_cpf)
+    return not cpf_valido
+
 
 def nome_invalido(Nome):
     return not Nome.isalpha()
 
 def celular_invalido(Celular):
-    return len(Celular) !=13
+    padrao = f'[0-9]{2} [0-9]{5}-[0-9]{4}'
+    resposta = re.findall(padrao,Celular)
+    return  resposta
 
 
