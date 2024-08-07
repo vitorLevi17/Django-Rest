@@ -11,8 +11,8 @@ def nome_invalido(Nome):
     return not Nome.isalpha()
 
 def celular_invalido(Celular):
-    padrao = f'[0-9]{2} [0-9]{5}-[0-9]{4}'
+    padrao = '[0-9]{2} [0-9]{5}-[0-9]{4}'
     resposta = re.findall(padrao,Celular)
-    return  resposta
+    return not resposta
 
 
