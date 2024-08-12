@@ -27,6 +27,6 @@ niveis = ['B', 'I', 'A']
 def criar_cursos():
     for codigo, descricao in dados:
         nivel = random.choice(niveis)
-        Curso.objects.create(codigo=codigo, descricao=descricao, nivel=nivel)
+        Curso.objects.create(id_curso=codigo, Descricao=descricao, Nivel=nivel)
 
 criar_cursos()
