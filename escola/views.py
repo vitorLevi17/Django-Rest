@@ -6,8 +6,9 @@ class EstudantesViewSet(viewsets.ModelViewSet):
 
     queryset = Estudantes.objects.all()
     serializer_class = EstudantesSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter,filters.SearchFilter]
     ordering_fields = ['Nome']
+    search_fields = ['Nome','CPF']
 
 class CursoViewSet(viewsets.ModelViewSet):
 
