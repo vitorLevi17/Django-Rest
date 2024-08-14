@@ -10,6 +10,11 @@ class EstudantesViewSet(viewsets.ModelViewSet):
     ordering_fields = ['Nome']
     search_fields = ['Nome','CPF']
 
+    def get_serializer_class(self):
+        if self.request.version == 'v2':
+            return EstudantesSerializerV2
+        return EstudantesSerializer
+
 class CursoViewSet(viewsets.ModelViewSet):
 
     queryset = Curso.objects.all()
