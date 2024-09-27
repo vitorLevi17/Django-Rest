@@ -1,6 +1,6 @@
 from django.test import TestCase
-from escola.models import Estudantes,Curso
-from escola.serializers import EstudantesSerializer,CursoSerializer
+from escola.models import Estudantes, Curso, Matricula
+from escola.serializers import EstudantesSerializer,CursoSerializer,MatriculaSerializer
 
 class serializerEstuanteTestCase(TestCase):
     def setUp(self):
@@ -40,3 +40,29 @@ class serializerCursoTestCase(TestCase):
         self.assertEqual(dados['id_curso'],self.curso.id_curso)
         self.assertEqual(self.curso.Descricao, self.curso.Descricao)
         self.assertEqual(self.curso.Nivel, self.curso.Nivel)
+
+class serializerMatriculasTestCase(TestCase):
+    def setUp(self):
+        self.estudante_matriculas = Estudantes(Nome = "Teste de Modelo da Silva",
+                                               Email = "Testeeee@gmail.com",
+                                               CPF = 38225551001,
+                                               Data_Nascimento = '2000-02-02',
+                                               Celular = '86 99999-8888')
+        self.curso_matricula = Curso(id_curso='POO1',
+                                     Descricao='Curso de programação orientada a objetos 1',
+                                     Nivel='I')
+        self.matricula = Matricula(id_estudante=self.estudante_matriculas,
+                                   id_curs=self.curso_matricula,
+                                   periodo='M'
+        )
+        self.serializer_matricula = MatriculaSerializer(instance=self.matricula)
+    def test_verifica_Matricula_Serializer(self):
+        """Teste verifica campos serializados da Matricula"""
+        dados = self.serializer_matricula.data
+        self.assertEqual(set(dados.keys()),set(['id','id_estudante','id_curs','periodo']))
+    def test_verifica_Campos_Serializer_Matricula(self):
+        """Teste verifica o conteudo dos campos serializados da Matricula"""
+        dados = self.serializer_matricula.data
+        self.assertEqual(dados['id_estudante'],self.matricula.id)
+        self.assertEqual(dados['id_curs'], self.matricula.id_curs.id)
+        self.assertEqual(self.matricula.periodo, self.matricula.periodo)
