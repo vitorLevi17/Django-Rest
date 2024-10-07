@@ -9,7 +9,7 @@ class EstudantesTestCase(APITestCase):
         self.usuario = User.objects.create_superuser(username='admin',password='admin')
         self.url = reverse('Estudantes-list')
         self.client.force_authenticate(user=self.usuario)
-        self.estudante_01 =Estudantes.objects.create(
+        self.estudante_01 = Estudantes.objects.create(
             Nome = 'Teste 1',
             Email = 'Email1@gmail.com',
             CPF = '65448392563',
