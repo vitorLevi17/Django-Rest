@@ -54,9 +54,6 @@ class modelMatriculaTestCase(TestCase):
             periodo='M'
         )
 
-    # def testeFalha(self):
-    #     self.fail('Teste falhou :(')
-
     def testVerificaAtributos(self):
         """
         Teste que verifica os atributos do modelo da Matricula

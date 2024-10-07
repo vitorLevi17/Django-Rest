@@ -1,9 +1,21 @@
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
 from django.urls import reverse
+from escola.models import Matricula,Estudantes,Curso
 
 class MatriculasTestCase(APITestCase):
     def setUp(self):
         self.usuario = User.objects.create_superuser(username='admin',password='admin')
         self.url = reverse('Matriculas-list')
-        self.client.force_authentcate(user=self.usuario)
+        self.client.force_authenticate(user=self.usuario)
+        self.matricula1 = Matricula.objects.create(
+            id_estudante = Estudantes.objects.create(
+                Nome = 'Teste 1',
+                Email = 'Email1@gmail.com',
+                CPF = '65448392563',
+                Data_Nascimento = '2024-10-06',
+                Celular = '71 99999-1010')
+            id_curs =
+            periodo = 'M'
+
+        )
