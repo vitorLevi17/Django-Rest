@@ -48,7 +48,3 @@ class EstudantesTestCase(APITestCase):
         }
         response = self.client.post(self.url,dados)
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
-
-        
-
-
