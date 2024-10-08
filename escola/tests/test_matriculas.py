@@ -3,11 +3,22 @@ from rest_framework.test import APITestCase
 from django.urls import reverse
 from escola.models import Matricula, Estudantes, Curso
 from rest_framework import status
+from escola.serializers import MatriculaSerializer
 class MatriculasTestCase(APITestCase):
     def setUp(self):
         self.usuario = User.objects.create_superuser(username='admin',password='admin')
         self.url = reverse('Matriculas-list')
         self.client.force_authenticate(user=self.usuario)
+        self.estudante = Estudantes.objects.create(
+            Nome='Estudante',
+            Email='estudante@gmail.com',
+            CPF='42896082050',
+            Data_Nascimento='2003-02-02',
+            Celular='11 98765-4321'
+        )
+        self.curso = Curso.objects.create(
+            id_curso='CTT', Descricao='Curso Teste', Nivel='B'
+        )
 
         self.matricula1 = Matricula.objects.create(
             id_estudante = Estudantes.objects.create(
@@ -44,3 +55,22 @@ class MatriculasTestCase(APITestCase):
         """Teste de requisição get para listar matriculas"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+    def testReqGetMatri(self):
+        """Teste de requisição GET para uma matricula"""
+        response = self.client.get(self.url+'/1')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        dados_matriculas = Matricula.objects.get(pk=1)
+        dados_matriculas_seri = MatriculaSerializer(instance=dados_matriculas).data
+        self.assertEqual(response.data,dados_matriculas_seri)
+
+    def testReqPostMatri(self):
+        """Teste de requisição POST para uma matricula"""
+        dados = {
+            'id_estudante': self.estudante.pk,
+            'id_curs': self.curso.pk,
+            'periodo':'M'
+        }
+        response = self.client.post(self.url,dados)
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+
