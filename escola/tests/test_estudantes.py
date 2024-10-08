@@ -48,3 +48,22 @@ class EstudantesTestCase(APITestCase):
         }
         response = self.client.post(self.url,dados)
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+
+    def test_ReqDeleteEstudante(self):
+        """Teste de requisição Delete para um estudante"""
+        response = self.client.delete(f'{self.url}/2') #outra forma de pegar a rota
+        self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
+
+    def test_ReqPut(self):
+        """Teste de requisição PUT para um estudante"""
+        dados = {
+            'Nome':'Testee',
+            'Email':'Emailll02@gmail.com',
+            'CPF':'16482053050',
+            'Data_Nascimento':'2005-10-01',
+            'Celular':'71 99919-2020'
+        }
+        response = self.client.put(self.url+'/1',dados)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+

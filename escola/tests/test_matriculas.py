@@ -12,12 +12,22 @@ class MatriculasTestCase(APITestCase):
         self.estudante = Estudantes.objects.create(
             Nome='Estudante',
             Email='estudante@gmail.com',
-            CPF='42896082050',
+            CPF='03998874070',
             Data_Nascimento='2003-02-02',
             Celular='11 98765-4321'
         )
         self.curso = Curso.objects.create(
             id_curso='CTT', Descricao='Curso Teste', Nivel='B'
+        )
+        self.estudante2 = Estudantes.objects.create(
+            Nome='Estudanteeeeeeeee',
+            Email='estudanteeeeeeee@gmail.com',
+            CPF='42896082050',
+            Data_Nascimento='2013-02-02',
+            Celular='11 98865-4321'
+        )
+        self.curso2 = Curso.objects.create(
+            id_curso='GO', Descricao='Curso de go', Nivel='A'
         )
 
         self.matricula1 = Matricula.objects.create(
@@ -74,3 +84,17 @@ class MatriculasTestCase(APITestCase):
         response = self.client.post(self.url,dados)
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
 
+    def test_ReqDeleteMatricula(self):
+        """Teste de requisição Delete para uma matricula"""
+        response = self.client.delete(f'{self.url}/1') #outra forma de pegar a rota
+        self.assertEqual(response.status_code,status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_ReqPut(self):
+        """Teste de requisição PUT para um estudante"""
+        dados = {
+            'id_estudante':self.estudante2.pk,
+            'id_curso':self.curso2.pk,
+            'Nivel':'A',
+        }
+        response = self.client.put(self.url+'/1',dados)
+        self.assertEqual(response.status_code,status.HTTP_405_METHOD_NOT_ALLOWED)

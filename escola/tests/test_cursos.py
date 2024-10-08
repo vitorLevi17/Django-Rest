@@ -42,5 +42,22 @@ class CursosTestCase(APITestCase):
         response = self.client.post(self.url,dados)
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
 
+    def test_ReqDeleteCurso(self):
+        """Teste de requisição Delete para um curso"""
+        response = self.client.delete(f'{self.url}/1') #outra forma de pegar a rota
+        self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
+
+    def test_ReqPutCurso(self):
+        """Teste de requisição PUT para um curso"""
+        dados = {
+            'id_curso':'Java',
+            'Descricao':'Curso de java para ambiente web',
+            'Nivel':'A',
+        }
+        response = self.client.put(self.url+'/1',dados)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+
+
 
 
