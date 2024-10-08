@@ -27,3 +27,9 @@ class EstudantesTestCase(APITestCase):
         """Teste de requisição get para listar estudantes """
         response = self.client.get(self.url)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+    def test_ReqGetListarEstudante(self):
+        """Teste de requisição GET para um estudante"""
+        response = self.client.get(self.url+'/1')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+

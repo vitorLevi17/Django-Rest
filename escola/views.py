@@ -26,7 +26,7 @@ class EstudantesViewSet(viewsets.ModelViewSet):
     """
 
     queryset = Estudantes.objects.all().order_by("id")
-    serializer_class = EstudantesSerializer
+    #serializer_class = EstudantesSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter,filters.SearchFilter]
     ordering_fields = ['Nome']
     search_fields = ['Nome','CPF']
