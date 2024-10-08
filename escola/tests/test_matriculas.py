@@ -5,62 +5,18 @@ from escola.models import Matricula, Estudantes, Curso
 from rest_framework import status
 from escola.serializers import MatriculaSerializer
 class MatriculasTestCase(APITestCase):
+    fixtures = ["prototipoBanco.json"]
     def setUp(self):
-        self.usuario = User.objects.create_superuser(username='admin',password='admin')
+
+        self.usuario = User.objects.get(username = 'vitorlevi')
         self.url = reverse('Matriculas-list')
         self.client.force_authenticate(user=self.usuario)
-        self.estudante = Estudantes.objects.create(
-            Nome='Estudante',
-            Email='estudante@gmail.com',
-            CPF='03998874070',
-            Data_Nascimento='2003-02-02',
-            Celular='11 98765-4321'
-        )
-        self.curso = Curso.objects.create(
-            id_curso='CTT', Descricao='Curso Teste', Nivel='B'
-        )
-        self.estudante2 = Estudantes.objects.create(
-            Nome='Estudanteeeeeeeee',
-            Email='estudanteeeeeeee@gmail.com',
-            CPF='42896082050',
-            Data_Nascimento='2013-02-02',
-            Celular='11 98865-4321'
-        )
-        self.curso2 = Curso.objects.create(
-            id_curso='GO', Descricao='Curso de go', Nivel='A'
-        )
+        self.estudante = Estudantes.objects.get(pk = 3)
+        self.curso = Curso.objects.get(pk=2)
+        self.estudante2 = Estudantes.objects.get(pk=4)
+        self.curso2 = Curso.objects.get(pk=13)
+        self.matricula1 = Matricula.objects.get(pk=1)
 
-        self.matricula1 = Matricula.objects.create(
-            id_estudante = Estudantes.objects.create(
-            Nome = 'Teste 1',
-            Email = 'Email1@gmail.com',
-            CPF = '65448392563',
-            Data_Nascimento = '2024-10-06',
-            Celular = '71 99999-1010'
-        ),
-            id_curs = Curso.objects.create(
-            id_curso = 'POO',
-            Descricao = 'Programacao orientada a Objetos',
-            Nivel = 'B'
-        ),
-            periodo = "M"
-        )
-
-        self.matricula2 = Matricula.objects.create(
-            id_estudante= Estudantes.objects.create(
-                Nome = 'Teste 2',
-                Email = 'Email2@gmail.com',
-                CPF = '58842223514',
-                Data_Nascimento = '2024-10-01',
-                Celular = '71 99999-2020'
-        ),
-            id_curs= Curso.objects.create(
-                id_curso='PY',
-                Descricao='Programacao Python',
-                Nivel='I'
-        ),
-            periodo="N"
-        )
     def testReqGetListMatr(self):
         """Teste de requisição get para listar matriculas"""
         response = self.client.get(self.url)
@@ -90,7 +46,7 @@ class MatriculasTestCase(APITestCase):
         self.assertEqual(response.status_code,status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_ReqPut(self):
-        """Teste de requisição PUT para um estudante"""
+        """Teste de requisição PUT para matricula"""
         dados = {
             'id_estudante':self.estudante2.pk,
             'id_curso':self.curso2.pk,
