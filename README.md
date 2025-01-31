@@ -11,7 +11,7 @@ O projeto Django-Rest é um projeto de desenvolvimento de uma API usando o djang
 - **Autenticação de Usuários:** Apenas usuarios cadastrados podem ter acesso a API
 - **Validação:** O projeto possui inumeras validações para garantir a integridade dos dados
 - **Documentação:** Utilizando o swagger, foi criada a documentação do sistema
-- **Ambiente de testes** Esse codigo já vem os teste disponiveis
+- **Ambiente de testes** Esse codigo já vem os testes unitários disponiveis
 
 
 ## Tecnologias Utilizadas
